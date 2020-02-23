@@ -1,0 +1,27 @@
+DROP DATABASE IF EXISTS company_db;
+
+CREATE DATABASE company_db;
+
+USE company_db;
+
+CREATE TABLE department (
+  id INTEGER AUTO_INCREMENT NOT NULL,
+  dept_name VARCHAR (30) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE role (
+  id INTEGER AUTO_INCREMENT NOT NULL,
+  title VARCHAR (30),
+  salary  DECIMAL (10,2) DEFAULT 0,
+  dept_id INTEGER,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE people (
+id INTEGER AUTO_INCREMENT,
+first VARCHAR (30),
+last VARCHAR (30),
+roleid INTEGER,
+PRIMARY KEY (id)
+);
