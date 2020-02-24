@@ -2,16 +2,30 @@ const mysql = require("mysql");
 // load environment variables
 require("dotenv").config();
 
-// create connection to database
-const connection = mysql.createConnection({
+// create the connection information for the sql database
+var connection = mysql.createConnection({
   host: "localhost",
-  //might need to change back to 3006
-  port: 3307,
-  // use values stored in .env file
-  // user: process.env.DB_USER,
-  // password: process.env.DB_PW,
-  database: process.env.DB_NAME
+
+  // Your port; if not 3306
+  port: 3306,
+
+  // Your username
+  user: "root",
+
+  // Your password
+  password: "",
+  database: "company_db"
 });
 
+// connect to the mysql server and sql database
+connection.connect(function(err) {
+  if (err) throw err;
+  // run the start function after the connection is made to prompt the user
+  start();
+});
+
+function start() {
+  console.log("you're in");
+}
 // export our connection
 module.exports = connection;
