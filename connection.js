@@ -1,4 +1,5 @@
 const mysql = require("mysql");
+const inquirer = require("inquirer");
 // load environment variables
 require("dotenv").config();
 
@@ -13,7 +14,7 @@ var connection = mysql.createConnection({
   user: "root",
 
   // Your password
-  password: "",
+  password: "nj2019!!",
   database: "company_db"
 });
 
@@ -25,7 +26,24 @@ connection.connect(function(err) {
 });
 
 function start() {
-  console.log("you're in");
+  askClient();
 }
+
+function askClient() {
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        message: "Which table would you like to update?",
+        name: "tableChoice",
+        choices: ["people", "department", "role"]
+      }
+    ])
+    .then(answers => {
+      console.log(answers.tableChoice);
+      // Use user feedback for... whateve
+    });
+}
+
 // export our connection
 module.exports = connection;
