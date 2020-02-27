@@ -1,7 +1,7 @@
 // import consola package for console.log() styling
 const consola = require("consola");
 // import connection to make queries
-const connection = require("../connection");
+const connection = require("./server");
 
 function addPerson() {
   console.log("adding person");
@@ -21,4 +21,12 @@ function addPerson() {
   console.log(query.sql);
 }
 
-addPerson();
+function viewPeople(){
+  connection.query("SELECT * FROM people", (err, peopleData) => {
+    if (err) {
+      throw err;
+    }
+    console.table(peopleData);
+}
+// export our connection
+// module.exports = commands;
