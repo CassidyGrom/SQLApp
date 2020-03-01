@@ -121,5 +121,41 @@ function addDepartment() {
       );
     });
 }
+
+function addRole() {
+  inquirer
+    .prompt([
+      {
+        name: "title",
+        type: "input",
+        message: "What is the title of the role?"
+      },
+      {
+        name: "salary",
+        type: "number",
+        message: "What is the role's salary?"
+      },
+      {
+        name: "dept_id",
+        type: "number",
+        message: "What the department's number id?"
+      }
+    ])
+    .then(function(answers) {
+      connection.query(
+        "INSERT INTO role SET ?",
+        {
+          title: answers.title,
+          salary: answers.salary || 1,
+          dept_id: answers.dept_id || 1
+        },
+        function(err) {
+          if (err) throw err;
+          console.log("Your department was created successfully!");
+        }
+      );
+    });
+}
+
 // export our connection
 module.exports = connection;
