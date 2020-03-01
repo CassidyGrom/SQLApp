@@ -77,7 +77,7 @@ function askClient() {
 function peopleView() {
   // read all items from database and print them to console
   // NEED TO MODIFY TO JOIN TABLES
-  connection.query("SELECT * FROM people", (err, peopleData) => {
+  connection.query("SELECT * FROM employee", (err, peopleData) => {
     if (err) {
       throw err;
     }
@@ -92,6 +92,18 @@ function departmentView() {
     }
     console.table(departmentData);
   });
+}
+
+function roleView() {
+  connection.query(
+    "SELECT employee.role_id, employee.first, employee.last, role.id, role.title, role.salary FROM employee LEFT JOIN role ON employee.role_id = role.id;",
+    (err, roleData) => {
+      if (err) {
+        throw err;
+      }
+      console.table(roleData);
+    }
+  );
 }
 // export our connection
 module.exports = connection;
