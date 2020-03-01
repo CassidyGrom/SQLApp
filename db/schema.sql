@@ -7,7 +7,7 @@ USE company_db;
 CREATE TABLE department (
   id INTEGER AUTO_INCREMENT NOT NULL,
   name VARCHAR (30) NOT NULL,
-  PRIMARY KEY (dept_id)
+  PRIMARY KEY (id)
 );
 
 CREATE TABLE role (
@@ -26,8 +26,4 @@ MANAGER_ID INTEGER,
 PRIMARY KEY (id)
 );
 
-//JOINING THE TABLES
-SELECT role, employee
-FROM employee
-INNER JOIN role
-ON employee.role_id = role.id;
+

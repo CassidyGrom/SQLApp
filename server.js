@@ -34,7 +34,6 @@ function askClient() {
         name: "tableChoice",
         choices: [
           "view all employees",
-          "view employees by department",
           "view employees by role",
           "add department",
           "add role",
@@ -48,25 +47,21 @@ function askClient() {
         console.log("ta-daa");
         peopleView();
       }
-      if (answers.tableChoice === "view employees by department") {
-        departmentView();
-      }
-      if (answers.tableChoice === "view employees by role") {
+      // if (answers.tableChoice === "view employees by department") {
+      //   departmentView();
+      // }
+      else if (answers.tableChoice === "view employees by role") {
         roleView();
-      }
-      if (answers.tableChoice === "add department") {
+      } else if (answers.tableChoice === "add department") {
         addDepartment();
-      }
-      if (answers.tableChoice === "add role") {
+      } else if (answers.tableChoice === "add role") {
         addRole();
-      }
-      if (answers.tableChoice === "add employee") {
+      } else if (answers.tableChoice === "add employee") {
         addEmployee();
-      }
-      if (answers.tableChoice === "update employee role") {
+      } else if (answers.tableChoice === "update employee role") {
         updateEmployee();
       } else {
-        console.log("please choose an option");
+        console.log("please choose an option, yo");
         askClient();
       }
     });
@@ -85,14 +80,14 @@ function peopleView() {
   });
 }
 
-function departmentView() {
-  connection.query("SELECT * FROM department", (err, departmentData) => {
-    if (err) {
-      throw err;
-    }
-    console.table(departmentData);
-  });
-}
+// function departmentView() {
+//   connection.query("SELECT * FROM department", (err, departmentData) => {
+//     if (err) {
+//       throw err;
+//     }
+//     console.table(departmentData);
+//   });
+// }
 
 function roleView() {
   connection.query(
@@ -104,6 +99,27 @@ function roleView() {
       console.table(roleData);
     }
   );
+}
+
+function addDepartment() {
+  inquirer
+    .prompt([
+      {
+        name: "name",
+        type: "input",
+        message: "What is the name of the department?"
+      }
+    ])
+    .then(function(answers) {
+      connection.query(
+        "INSERT INTO department SET ?",
+        { name: answers.name },
+        function(err) {
+          if (err) throw err;
+          console.log("Your department was created successfully!");
+        }
+      );
+    });
 }
 // export our connection
 module.exports = connection;
