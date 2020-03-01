@@ -7,16 +7,11 @@ require("dotenv").config();
 // create the connection information for the sql database
 var connection = mysql.createConnection({
   host: "localhost",
-
-  // Your port; if not 3306
   port: 3306,
-
-  // Your username
-  user: "root",
-
-  // Your password
-  password: "nj2019!!",
-  database: "company_db"
+  // use values stored in .env file
+  user: process.env.DB_USER,
+  password: process.env.DB_PW,
+  database: process.env.DB_NAME
 });
 
 // connect to the mysql server and sql database
@@ -56,6 +51,24 @@ function askClient() {
       if (answers.tableChoice === "view employees by department") {
         departmentView();
       }
+      if (answers.tableChoice === "view employees by role") {
+        roleView();
+      }
+      if (answers.tableChoice === "add department") {
+        addDepartment();
+      }
+      if (answers.tableChoice === "add role") {
+        addRole();
+      }
+      if (answers.tableChoice === "add employee") {
+        addEmployee();
+      }
+      if (answers.tableChoice === "update employee role") {
+        updateEmployee();
+      } else {
+        console.log("please choose an option");
+        askClient();
+      }
     });
 }
 
@@ -63,6 +76,7 @@ function askClient() {
 //PeopleData
 function peopleView() {
   // read all items from database and print them to console
+  // NEED TO MODIFY TO JOIN TABLES
   connection.query("SELECT * FROM people", (err, peopleData) => {
     if (err) {
       throw err;
