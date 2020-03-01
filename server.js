@@ -157,5 +157,67 @@ function addRole() {
     });
 }
 
-// export our connection
-module.exports = connection;
+function addEmployee() {
+  inquirer
+    .prompt([
+      {
+        name: "first",
+        type: "input",
+        message: "What is the employee's first name?"
+      },
+      {
+        name: "last",
+        type: "input",
+        message: "What is the employee's last name?"
+      },
+      {
+        name: "role_id",
+        type: "number",
+        message: "What is the employee's role number?"
+      },
+      {
+        name: "MANAGER_ID",
+        type: "number",
+        message: "What is the employee's manager number?"
+      }
+    ])
+    .then(function(answers) {
+      connection.query(
+        "INSERT INTO employee SET ?",
+        {
+          first: answers.first,
+          last: answers.last,
+          role_id: answers.role_id || 1,
+          MANAGER_ID: answers.MANAGER_ID
+        },
+        function(err) {
+          if (err) throw err;
+          console.log("Your employee was created successfully!");
+        }
+      );
+    });
+}
+
+function getAllEmployees() {
+  connection.query("SELECT * FROM employee", (err, peopleData) => {
+    if (err) {
+      throw err;
+    }
+    console.table(peopleData);
+  });
+}
+
+function askAboutWho() {
+  inquirer.promt([
+    {
+      name: "identification",
+      type: "number",
+      message: "what is the id number of the employee you want to edit?"
+    }
+  ]);
+}
+
+function updateEmployee() {
+  getAllEmployees(works).then(blah){
+  askAboutWho();}
+}
