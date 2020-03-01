@@ -5,22 +5,29 @@ CREATE DATABASE company_db;
 USE company_db;
 
 CREATE TABLE department (
-  dept_id INTEGER AUTO_INCREMENT NOT NULL,
-  dept_name VARCHAR (30) NOT NULL,
-  PRIMARY KEY (id)
+  id INTEGER AUTO_INCREMENT NOT NULL,
+  name VARCHAR (30) NOT NULL,
+  PRIMARY KEY (dept_id)
 );
 
 CREATE TABLE role (
   id INTEGER AUTO_INCREMENT NOT NULL,
   title VARCHAR (30),
   salary  DECIMAL (10,2) DEFAULT 0,
-  PRIMARY KEY (id)
+  dept_id INT NOT NULL
 );
 
-CREATE TABLE people (
-id INTEGER AUTO_INCREMENT,
+CREATE TABLE employee (
+id INTEGER AUTO_INCREMENT NOT NULL,
 first VARCHAR (30),
 last VARCHAR (30),
-roleid INTEGER,
+role_id INTEGER NOT NULL,
+MANAGER_ID INTEGER,
 PRIMARY KEY (id)
 );
+
+//JOINING THE TABLES
+SELECT role, employee
+FROM employee
+INNER JOIN role
+ON employee.role_id = role.id;
